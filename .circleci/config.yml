@@ -7,18 +7,18 @@ jobs:
     steps:
       - checkout
       - run:
-          name: Install Vercel CLI
-          command: npm install -g vercel
-      - run:
           name: Install dependencies
           command: npm ci
+      - run:
+          name: Install Vercel CLI locally
+          command: npm install vercel
       - run:
           name: Build project
           command: npm run build
       - run:
           name: Deploy to Vercel
           command: |
-            vercel --prod --token $VERCEL_TOKEN \
+            npx vercel --prod --token $VERCEL_TOKEN \
               --env NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
               --env NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
 
