@@ -9,9 +9,12 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "@solidjs/router": "^0.15.3",
+    "next": "^15.3.3",
     "solid-js": "^1.9.5"
   },
   "devDependencies": {
+    "@types/next": "^9.0.0",
     "typescript": "~5.8.3",
     "vite": "^6.3.5",
     "vite-plugin-solid": "^2.11.6"
