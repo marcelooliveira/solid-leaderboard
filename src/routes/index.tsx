@@ -2,9 +2,13 @@ import { createResource } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 // import { getScores } from '~/api/scores';
 
-
 const getScores = async () => {
-  const res = await fetch("/api/scores");
+  let scoresUrl = "/api/scores";
+  if (import.meta.env.DEV) {
+    scoresUrl = "http://localhost:3000/api/scores";
+  }
+
+  const res = await fetch(scoresUrl);
   return res.json();
 };
 

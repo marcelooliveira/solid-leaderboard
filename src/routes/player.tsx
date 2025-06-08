@@ -24,7 +24,12 @@ export default function PlayerForm() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    await fetch("/api/scores", {
+    let scoresUrl = "/api/scores";
+    if (import.meta.env.DEV) {
+      scoresUrl = "http://localhost:3000/api/scores";
+    }
+
+    await fetch(scoresUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ avatar: avatar(), playername: playername(), points: points() }),
