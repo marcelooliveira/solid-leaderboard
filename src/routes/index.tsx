@@ -4,9 +4,9 @@ import { useNavigate } from "@solidjs/router";
 
 const getScores = async () => {
   let scoresUrl = "/api/scores";
-  if (import.meta.env.DEV) {
-    scoresUrl = "http://localhost:3000/api/scores";
-  }
+  // if (import.meta.env.DEV) {
+  //   scoresUrl = "http://localhost:3000/api/scores";
+  // }
 
   const res = await fetch(scoresUrl);
   return res.json();

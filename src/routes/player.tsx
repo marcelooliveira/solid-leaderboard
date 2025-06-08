@@ -25,9 +25,9 @@ export default function PlayerForm() {
     e.preventDefault();
 
     let scoresUrl = "/api/scores";
-    if (import.meta.env.DEV) {
-      scoresUrl = "http://localhost:3000/api/scores";
-    }
+    // if (import.meta.env.DEV) {
+    //   scoresUrl = "http://localhost:3000/api/scores";
+    // }
 
     await fetch(scoresUrl, {
       method: "POST",

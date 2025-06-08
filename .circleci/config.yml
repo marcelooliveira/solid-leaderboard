@@ -11,7 +11,8 @@ jobs:
           command: npm ci
       - run:
           name: Install Vercel CLI locally
-          command: npm install vercel
+          # command: npm install vercel
+          command: pnpm add -D vercel
       - run:
           name: Build project
           command: npm run build
@@ -19,10 +20,14 @@ jobs:
           name: Deploy to Vercel
           command: |
             pnpm install --no-frozen-lockfile
-            npx vercel --prod --token $VERCEL_TOKEN \
-              --env NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
-              --env NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
-              --yes --confirm
+            # npx vercel --prod --token $VERCEL_TOKEN \
+            #   --env NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
+            #   --env NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
+            #   --yes --confirm
+            pnpm vercel --prod --token $VERCEL_TOKEN \
+              --env NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
+              --env NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
+              --yes            
 
 workflows:
   deploy:
