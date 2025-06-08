@@ -15,6 +15,14 @@ jobs:
     steps:
       - checkout # Checkout your code from the repository
 
+      - run:
+          name: List files in project root
+          command: ls -R /home/circleci/project # Lists all files recursively in the project directory
+
+      - run:
+          name: List files in src directory
+          command: ls -al /home/circleci/project/src # Lists files in the src directory with details
+
       - node/install-packages: # Install Node.js dependencies using npm ci for cleaner builds
           pkg-manager: npm
           cache-path: ~/.npm
