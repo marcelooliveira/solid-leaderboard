@@ -1,29 +1,41 @@
 version: 2.1
 
+orbs:
+  node: circleci/node@5.0.0 # Use the Node.js orb for easier setup
+
 jobs:
-  deploy:
-    docker:
-      - image: cimg/node:20.11
+  deploy_to_vercel:
+    executor:
+      name: node/default
+      tag: '20.11.0' # Use a Node.js version compatible with your engine requirement (>=18)
+
     steps:
-      - checkout
+      - checkout # Checkout your code from the repository
+
+      - node/install-deps: # Install Node.js dependencies (runs npm install)
+          pkg-manager: npm
+
       - run:
-          name: Install dependencies
-          command: npm ci
+          name: Build Vinxi Application
+          command: npm run build # Run the build script defined in your package.json
+
       - run:
-          name: Install Vercel CLI locally
-          command: npm install vercel
-      - run:
-          name: Build project
-          command: npm run build
+          name: Install Vercel CLI
+          command: npm install -g vercel@latest # Install the latest Vercel CLI globally
+
       - run:
           name: Deploy to Vercel
           command: |
-            npx vercel --prod --token $VERCEL_TOKEN \
-              --env NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
-              --env NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
-              --yes --confirm
+            vercel deploy --prod --token=$VERCEL_TOKEN # Deploy to production with your Vercel token
+          environment:
+            VERCEL_TOKEN: ${VERCEL_TOKEN} # Reference the environment variable for security
 
 workflows:
-  deploy:
+  version: 2
+  build_and_deploy:
     jobs:
-      - deploy
+      - deploy_to_vercel:
+          filters:
+            branches:
+              only: main # Only deploy when changes are pushed to the 'main' branch (adjust as needed)
+              
