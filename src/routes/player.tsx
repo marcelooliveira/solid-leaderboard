@@ -24,10 +24,10 @@ export default function PlayerForm() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    let scoresUrl = "/api/scores";
-    // if (import.meta.env.DEV) {
-    //   scoresUrl = "http://localhost:3000/api/scores";
-    // }
+    let scoresUrl = "http://localhost:3000/api/scores";
+    if (process.env.VERCEL_URL) {
+      scoresUrl = `http://${process.env.VERCEL_URL}/api/scores`;
+    }
 
     await fetch(scoresUrl, {
       method: "POST",

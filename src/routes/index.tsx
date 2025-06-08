@@ -3,10 +3,10 @@ import { useNavigate } from "@solidjs/router";
 // import { getScores } from '~/api/scores';
 
 const getScores = async () => {
-  let scoresUrl = "/api/scores";
-  // if (import.meta.env.DEV) {
-  //   scoresUrl = "http://localhost:3000/api/scores";
-  // }
+  let scoresUrl = "http://localhost:3000/api/scores";
+  if (process.env.VERCEL_URL) {
+    scoresUrl = `http://${process.env.VERCEL_URL}/api/scores`;
+  }
 
   const res = await fetch(scoresUrl);
   return res.json();
