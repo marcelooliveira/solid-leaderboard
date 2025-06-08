@@ -1,4 +1,4 @@
-import { createResource } from "solid-js";
+import { createSignal, onMount, For } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 // import { getScores } from '~/api/scores';
 
@@ -13,7 +13,13 @@ const getScores = async () => {
 };
 
 export default function Leaderboard() {
-  const [scores] = createResource(getScores);
+  const [scores, setScores] = createSignal([]);
+
+  onMount(async () => {
+    const data = await getScores();
+    setScores(data);
+  });
+  
   const navigate = useNavigate();
 
   return (
