@@ -3,10 +3,13 @@ import { useNavigate } from "@solidjs/router";
 // import { getScores } from '~/api/scores';
 
 const getScores = async () => {
-  let scoresUrl = "http://localhost:3000/api/scores";
-  if (process.env.VERCEL_URL) {
-    scoresUrl = `http://${process.env.VERCEL_URL}/api/scores`;
-  }
+  let scoresUrl = "/api/scores";
+
+  // let scoresUrl = "http://localhost:3000/api/scores";
+  // if (process.env.VERCEL_URL) {
+  //   scoresUrl = `http://${process.env.VERCEL_URL}/api/scores`;
+  // }
+
 
   const res = await fetch(scoresUrl);
   return res.json();
@@ -19,7 +22,7 @@ export default function Leaderboard() {
     const data = await getScores();
     setScores(data);
   });
-  
+
   const navigate = useNavigate();
 
   return (
