@@ -18,6 +18,8 @@ jobs:
       - run:
           name: Deploy to Vercel
           command: |
+            echo "NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY"
+            echo "NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL"          
             pnpm install --no-frozen-lockfile
             npx vercel --prod --token $VERCEL_TOKEN \
               --env NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
