@@ -1,63 +1,29 @@
-# .circleci/config.yml
-
 version: 2.1
 
-# Define orbs for common tasks
-orbs:
-  node: circleci/node@5.0.2 # Use the Node.js orb for common Node.js operations
-
 jobs:
-  build_and_deploy:
+  deploy:
     docker:
-      - image: cimg/node:18.17.1 # Use a Node.js image that matches or is compatible with your engine requirement (Node.js >=18)
-    resource_class: large # Adjust resource class based on your build needs (medium, large, xlarge, etc.)
-
+      - image: cimg/node:20.11
     steps:
-      - checkout # Checkout your code from the repository
-
+      - checkout
       - run:
-          name: List files in project root
-          command: ls -R /home/circleci/project # Lists all files recursively in the project directory
-
+          name: Install dependencies
+          command: npm ci
       - run:
-          name: List files in src directory
-          command: ls -al /home/circleci/project/src # Lists files in the src directory with details
-
-      - node/install-packages: # Install Node.js dependencies using npm ci for cleaner builds
-          pkg-manager: npm
-          cache-path: ~/.npm
-          # cache-key: "v1-dependencies-{{ checksum "package-lock.json" }}" # Uncomment and use for caching
-
+          name: Install Vercel CLI locally
+          command: npm install vercel
       - run:
-          name: Build Vinxi App
-          command: npm run build # Run your Vinxi build command
-
-      - run:
-          name: Install Vercel CLI
-          command: sudo npm install --global vercel@latest # Install Vercel CLI globally
-
+          name: Build project
+          command: npm run build
       - run:
           name: Deploy to Vercel
           command: |
-            # Login to Vercel using the token.
-            # VERCEL_TOKEN should be set as an environment variable in CircleCI project settings.
-            vercel login --token "${VERCEL_TOKEN}"
-
-            # Deploy to Vercel.
-            # --prod flag deploys to your production domain (if configured in Vercel).
-            # --prebuilt tells Vercel that the project is already built (from `npm run build`).
-            # --yes skips interactive prompts.
-            # --confirm skips the final confirmation step for production deployments.
-            # --scope and --project are good for explicit control, replace with your actual values if needed.
-            vercel --prod --prebuilt --yes --confirm --token "${VERCEL_TOKEN}" \
-              --env NEXT_PUBLIC_SUPABASE_ANON_KEY="${NEXT_PUBLIC_SUPABASE_ANON_KEY}" \
-              --env NEXT_PUBLIC_SUPABASE_URL="${NEXT_PUBLIC_SUPABASE_URL}"
+            npx vercel --prod --token $VERCEL_TOKEN \
+              --env NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
+              --env NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL \
+              --yes --confirm
 
 workflows:
-  version: 2
-  build_and_deploy_app:
+  deploy:
     jobs:
-      - build_and_deploy:
-          filters:
-            branches:
-              only: main # This job will only run on commits to the 'main' branch
+      - deploy
