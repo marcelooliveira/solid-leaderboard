@@ -31,7 +31,7 @@ export default function Leaderboard() {
 
   return (
     <div class="container mt-4">
-      <div class="alert alert-danger text-center h2">GAME LEADERBOARD</div>
+      <div class="alert alert-danger text-center h2">GAME LEADERBOARD 21:15</div>
       <div class="bg-dark text-white row py-2">
         <div class="col-1 text-center">#</div>
         <div class="col-7">Player</div>

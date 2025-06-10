@@ -25,3 +25,10 @@ This uses the [Vercel Adapter](https://github.com/solidjs/solid-start/tree/main/
 ```bash
 npm run build
 ```
+
+Ensure solid-start-vercel is installed:
+Make sure you have the Vercel adapter package installed as a dependency. You can do this by running:
+
+```bash
+pnpm add solid-start-vercel
+```
