@@ -64,8 +64,12 @@ export async function POST({ params }: APIEvent) {
     return new Response(JSON.stringify({ error: insertError.message }), { status: 400 });
   }
 
-  return json(insertResult)
-} 
+  return new Response(JSON.stringify(insertResult), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
+}
 
 function getAvatarDic(): Record<string, string> {
   return {
