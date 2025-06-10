@@ -29,7 +29,11 @@ export async function GET({ params }: APIEvent) {
       points: s.points,
     }));
 
-  return json(sorted);
+    return new Response(JSON.stringify(sorted), {
+    headers: {
+      "Content-Type": "application/json",
+    },
+  });
 }
 
 export async function POST({ params }: APIEvent) {
