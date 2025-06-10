@@ -10,8 +10,12 @@ const getScores = async () => {
   //   scoresUrl = `http://${process.env.VERCEL_URL}/api/scores`;
   // }
 
+  console.log("Fetching scores from:", scoresUrl);
 
   const res = await fetch(scoresUrl);
+
+  console.log("Response status:", res.status);
+
   return res.json();
 };
 
