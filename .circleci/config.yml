@@ -19,10 +19,18 @@ jobs:
           name: Deploy to Vercel
           command: |
             pnpm install --no-frozen-lockfile
-            npx vercel --prod --token $VERCEL_TOKEN \
-              --env NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
-              --env NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
-              --yes --confirm
+            pnpm run build
+            NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
+              NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
+              pnpm vercel deploy --prebuilt --yes
+
+            # pnpm vercel deploy --prebuilt --yes
+            #   --env NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
+            #   --env NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
+            # npx vercel --prod --token $VERCEL_TOKEN \
+            #   --env NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
+            #   --env NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
+            #   --yes --confirm
 
 workflows:
   deploy:
