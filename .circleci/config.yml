@@ -22,7 +22,7 @@ jobs:
             pnpm run build
             NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
               NEXT_PUBLIC_SUPABASE_URL=${NEXT_PUBLIC_SUPABASE_URL} \
-              pnpm vercel deploy --prebuilt --yes
+              pnpm vercel deploy --prebuilt --yes --token $VERCEL_TOKEN
 
             # pnpm vercel deploy --prebuilt --yes
             #   --env NEXT_PUBLIC_SUPABASE_ANON_KEY=${NEXT_PUBLIC_SUPABASE_ANON_KEY} \
