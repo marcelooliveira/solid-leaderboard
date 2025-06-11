@@ -1,21 +1,8 @@
 import { createSignal, onMount, For } from "solid-js";
 import { useNavigate } from "@solidjs/router";
-// import { getScores } from '~/api/scores';
 
 const getScores = async () => {
-  let scoresUrl = "/api/scores";
-
-  // let scoresUrl = "http://localhost:3000/api/scores";
-  // if (process.env.VERCEL_URL) {
-  //   scoresUrl = `http://${process.env.VERCEL_URL}/api/scores`;
-  // }
-
-  console.log("Fetching scores from:", scoresUrl);
-
-  const res = await fetch(scoresUrl);
-
-  console.log("Response status:", res.status);
-
+  const res = await fetch("/api/scores");
   return res.json();
 };
 
@@ -31,7 +18,7 @@ export default function Leaderboard() {
 
   return (
     <div class="container mt-4">
-      <div class="alert alert-danger text-center h2">GAME LEADERBOARD 21:15</div>
+      <div class="alert alert-danger text-center h2">GAME LEADERBOARD</div>
       <div class="bg-dark text-white row py-2">
         <div class="col-1 text-center">#</div>
         <div class="col-7">Player</div>

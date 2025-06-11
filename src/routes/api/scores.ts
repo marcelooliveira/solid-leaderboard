@@ -40,20 +40,6 @@ export async function POST({ params }: APIEvent) {
   const body = await readBody(params);
   const { avatar, playername, points } = body;
 
-  // const { data: updateResult, error: updateError } = await supabase
-  //   .from('scores')
-  //   .update({ points: parseInt(points), avatar: parseInt(avatar) })
-  //   .eq('playername', playername)
-  //   .select();
-
-  // if (updateError) {
-  //   return new Response(JSON.stringify({ error: updateError.message }), { status: 400 });
-  // }
-
-  // if (updateResult.length > 0) {
-  //   return updateResult;
-  // }
-
   const { data: insertResult, error: insertError } = await supabase
     .from('scores')
     .insert([{ avatar: parseInt(avatar), playername, points: parseInt(points) }])
@@ -64,11 +50,7 @@ export async function POST({ params }: APIEvent) {
     return new Response(JSON.stringify({ error: insertError.message }), { status: 400 });
   }
 
-  return new Response(JSON.stringify(insertResult), {
-    headers: {
-      "Content-Type": "application/json",
-    },
-  });
+  return insertResult.json();
 }
 
 function getAvatarDic(): Record<string, string> {
