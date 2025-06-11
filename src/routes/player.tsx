@@ -24,7 +24,13 @@ export default function PlayerForm() {
   const handleSubmit = async (e: any) => {
     e.preventDefault();
 
-    await fetch("/api/scores", {
+    let scoresApiUrl = "/api/scores";
+
+    if (process.env.VERCEL_URL) {
+      scoresApiUrl = `http://${process.env.VERCEL_URL}${scoresApiUrl}`;
+    }
+
+    await fetch(scoresApiUrl, {
       method: "POST",
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({ avatar: avatar(), playername: playername(), points: points() }),

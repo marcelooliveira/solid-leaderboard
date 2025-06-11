@@ -2,7 +2,14 @@ import { createSignal, onMount, For } from "solid-js";
 import { useNavigate } from "@solidjs/router";
 
 const getScores = async () => {
-  const res = await fetch("/api/scores");
+  let scoresApiUrl = "/api/scores";
+
+  if (process.env.VERCEL_URL) {
+    scoresApiUrl = `http://${process.env.VERCEL_URL}${scoresApiUrl}`;
+  }
+
+  const res = await fetch(scoresApiUrl);
+
   return res.json();
 };
 
