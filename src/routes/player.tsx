@@ -47,7 +47,7 @@ export default function PlayerForm() {
 
   return (
     <form onSubmit={handleSubmit} class="container mt-4">
-      <div class="alert alert-danger text-center h2">Add New Entry</div>
+      <div class="alert alert-success text-center h2">Add New Player</div>
       <div class="row bg-dark text-white py-2">
         <div class="col-3">Avatar</div>
         <div class="col-6">Player Name</div>

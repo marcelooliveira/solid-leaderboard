@@ -1,4 +1,5 @@
 {
+  "name": "Solid Leaderboard",
   "builds": [
     {
       "src": "package.json",

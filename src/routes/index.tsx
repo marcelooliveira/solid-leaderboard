@@ -37,11 +37,12 @@ export default function Leaderboard() {
 
   return (
     <div class="container mt-4">
-      <div class="alert alert-danger text-center h2">GAME LEADERBOARD</div>
+      <div class="alert alert-success text-center h2">GAME LEADERBOARD</div>
       <div class="bg-dark text-white row py-2">
         <div class="col-1 text-center">#</div>
-        <div class="col-7">Player</div>
+        <div class="col-5">Player</div>
         <div class="col-4 text-end">Points</div>
+        <div class="col-2">Delete</div>
       </div>
       {scores()?.map((s: any) => (
         <div class="row py-2 border-bottom">
