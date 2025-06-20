@@ -23,7 +23,7 @@ jobs:
       - run:
           name: Build Vercel
           command: |
-            pnpm vercel build --token=$VERCEL_TOKEN
+            pnpm vercel build link --yes --token=$VERCEL_TOKEN
       - run:
           name: Deploy to Vercel
           command: |
