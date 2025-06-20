@@ -16,10 +16,13 @@ jobs:
           name: Build project
           command: npm run build
       - run:
-          name: Install and build Vercel
+          name: pnpm Install
           command: |
             pnpm install --no-frozen-lockfile
             pnpm run build
+      - run:
+          name: Build Vercel
+          command: |
             pnpm vercel build link --yes
       - run:
           name: Deploy to Vercel
