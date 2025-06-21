@@ -1,0 +1,27 @@
+version: 2.1
+
+jobs:
+  deploy:
+    docker:
+      - image: cimg/node:20.11
+    steps:
+      - checkout
+      - run:
+          name: Install dependencies
+          command: pnpm install
+      - run:
+          name: Install Vercel CLI locally
+          command: pnpm install vercel
+      - run:
+          name: Deploy to Vercel
+          command: |
+            pnpm vercel pull --yes --token=$VERCEL_TOKEN
+            pnpm vercel link --project $VERCEL_PROJECT_NAME --token=$VERCEL_TOKEN --yes
+            pnpm vercel deploy --yes --token=$VERCEL_TOKEN \
+              --env NEXT_PUBLIC_SUPABASE_ANON_KEY=$NEXT_PUBLIC_SUPABASE_ANON_KEY \
+              --env NEXT_PUBLIC_SUPABASE_URL=$NEXT_PUBLIC_SUPABASE_URL
+
+workflows:
+  deploy:
+    jobs:
+      - deploy
